@@ -1,18 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
-import Controller.Controller;
+import Controllers.LoginViewController;
+import Model.Client;
+
 
 public class ViewMenu extends javax.swing.JFrame {
 
-    private Controller controller;
+    private final LoginViewController controller = null;
+    private final Client client;
 
-    public ViewMenu(Controller controller) {
+    public ViewMenu(Client client) {
         initComponents();
-        this.controller = controller;
+        this.client = client;
     }
 
     /**
@@ -122,7 +121,7 @@ public class ViewMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
-        ViewAccounts window = new ViewAccounts();
+        ViewAccounts window = new ViewAccounts(controller);
         window.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

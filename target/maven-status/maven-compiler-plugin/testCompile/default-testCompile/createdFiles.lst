@@ -1,0 +1,3 @@
+Model\SerializeClientsTest.class
+Service\ValidationTest.class
+DAO\ClientsDAOTest.class
