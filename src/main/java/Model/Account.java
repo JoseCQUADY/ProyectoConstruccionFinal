@@ -1,38 +1,37 @@
 package Model;
 
-public class Account {
-    private String idClient;
+public abstract class Account {
+
+    private double balanceAccount;
     private int idAccount;
-    private double balance;
-
-    public Account(String curpClient, int id) {
-        this.idClient = curpClient;
-        this.idAccount = id;
-        this.balance = 0.0;
+    
+    public Account(double balanceAccount,int idAccount) {
+        this.balanceAccount = balanceAccount;
+        this.idAccount = idAccount;
     }
     
-    public String getIdClient() {
-        return idClient;
+    public abstract void accountWithDraw(double withdrawAmount);
+    
+    public abstract void accountDeposit(double depositAmount);
+    
+    
+    public double getBalanceAccount() {
+        return balanceAccount;
     }
 
-    public void setIdClient(String id) {
-        this.idClient = id;
+    public void setBalanceAccount(double balanceAccount) {
+        this.balanceAccount = balanceAccount;
     }
-    
+
     public int getIdAccount() {
         return idAccount;
     }
 
-    public void setIdAccount(int id) {
-        this.idAccount = id;
+    public void setIdAccount(int idAccount) {
+        this.idAccount = idAccount;
     }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+    
+    
+   
 }
 

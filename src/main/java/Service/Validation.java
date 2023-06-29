@@ -4,12 +4,14 @@
  */
 package Service;
 
-/**
- *
- * @author gaeli
- */
 public class Validation {
-    public boolean validateCURP(String curp){
+
+    /**
+     *
+     * @param curp
+     * @return
+     */
+    public boolean validateCurp(String curp){
         int expectedLength = 18;
         
         if (curp.length() != expectedLength) {
