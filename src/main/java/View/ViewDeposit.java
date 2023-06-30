@@ -4,13 +4,13 @@
  */
 package View;
 
-import Controller.Controller;
+import Controller.LoginViewController;
 
 public class ViewDeposit extends javax.swing.JFrame  {
 
-    private Controller controller;
+    private LoginViewController controller;
     
-    public ViewDeposit(Controller controller) {
+    public ViewDeposit(LoginViewController controller) {
         initComponents();
         this.controller = controller;
     }
@@ -147,7 +147,7 @@ public class ViewDeposit extends javax.swing.JFrame  {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
-        ViewMenu window = new ViewMenu(controller);
+        ViewAccounts window = new ViewAccounts(controller);
         window.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
