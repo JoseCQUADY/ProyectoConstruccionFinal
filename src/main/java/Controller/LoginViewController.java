@@ -2,7 +2,6 @@ package Controller;
 
 import DAO.ClientsDAO;
 import Model.Client;
-import Service.DeserializeClients;
 import View.ViewSignUp;
 import View.ViewLogin;
 import View.ViewMenu;
@@ -19,9 +18,13 @@ import java.util.logging.Logger;
 public class LoginViewController implements ActionListener {
 
     private ViewLogin viewLogin = new ViewLogin();
+    private final ClientsDAO clientsDAO = new ClientsDAO();
 
     /**
-     *
+     * Constructor de la clase LoginViewController
+     * Inicializa los botones y campos de texto de la vista Login
+     * Para poder usarlos y llamarlos desde el controlador
+     * 
      * @param viewLogin
      */
     public LoginViewController(ViewLogin viewLogin) {
@@ -30,41 +33,63 @@ public class LoginViewController implements ActionListener {
         this.viewLogin.ButtonLogin.addActionListener(this);
         this.viewLogin.textFieldPass.addActionListener(this);
         this.viewLogin.textFieldUser.addActionListener(this);
+        
     }
 
     /**
-     *
+     * Método para inciar sesión
+     * Obteniendo los datos ingresados (usuario y constraseña) por el cliente en la vista Login
+     * Utiliza una lista con los clientes ingresados
+     * Compara cada elemento (cliente) de la lista con los datos que hay en la base de datos 
+     * Para saber ssi existe el cliente
+     * 
+     * 
      * @throws IOException
      * @throws FileNotFoundException
      * @throws ClassNotFoundException
      */
     public void loginUserClient() throws IOException, FileNotFoundException, ClassNotFoundException {
-        ArrayList<Client> clientList = DeserializeClients.deserializeClients();
-        for (int i = 0; i < clientList.size(); i++) {
-            if (clientList.get(i).getClientUser().equals(this.viewLogin.textFieldUser.getText()) && clientList.get(i).getClientPassWord().equals(this.viewLogin.textFieldPass.getText())) {
-                JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
-                openViewMenu();
-                break;
-            }
+        ArrayList<Client> clientList = clientsDAO.getDeserializeClientList();
+        String enteredUser = this.viewLogin.textFieldUser.getText();
+        String enteredPassword = this.viewLogin.textFieldPass.getText();
+        boolean isLoginSuccessful = clientList.stream()
+                .anyMatch(client -> client.getClientUser().equals(enteredUser) && client.getClientPassWord().equals(enteredPassword));
+
+        if (isLoginSuccessful) {
+            JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
+            openViewMenu();
+        } else {
+            JOptionPane.showMessageDialog(null, "Credenciales Inválidas");
         }
     }
 
-    public void initializeSignUpView() {
+    /**
+     * Método para abrir la vista Sign Up 
+     * Cierra la vista Login
+     */
+    public void openSignUpView() {
         ViewSignUp viewSignUp = new ViewSignUp();
-
+        SignUpViewController viewController = new SignUpViewController(clientsDAO, viewSignUp);
         viewSignUp.setVisible(true);
         this.viewLogin.setVisible(false);
     }
     
+    /**
+     * Método para abrir la vista Menu 
+     * Cierra la vista Login
+     */
     public void openViewMenu() {
         ViewMenu viewMenu = new ViewMenu();
-
+        
         viewMenu.setVisible(true);
         this.viewLogin.setVisible(false);
     }
 
     /**
-     *
+     * Método de la clase implementada ActionListener que detecta y maneja eventos (clic en botones)
+     * Utilizado para el funcionamiento y uso de los botones de la vista Sign Up 
+     * Mediante condicionales
+     * 
      * @param e
      */
     @Override
@@ -76,10 +101,12 @@ public class LoginViewController implements ActionListener {
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (e.getSource() == this.viewLogin.ButtonAddClient) {
-
-            initializeSignUpView();
         }
+        if (e.getSource() == this.viewLogin.ButtonAddClient) {
+
+            openSignUpView();
+        }
+        
 
     }
 
@@ -90,3 +117,4 @@ public class LoginViewController implements ActionListener {
     return random.nextInt(max - min + 1) + min;
     }*/
 }
+

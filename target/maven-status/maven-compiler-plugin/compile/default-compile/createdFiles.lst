@@ -1,6 +1,5 @@
 View\ViewDeposit$4.class
 View\ViewDeposit.class
-Controllers\SignUpViewController.class
 Service\Validation.class
 View\ViewAddAccount$3.class
 View\ViewLogin.class
@@ -10,11 +9,13 @@ Model\SavingAccount.class
 View\ViewAddAccount.class
 DAO\ClientsDAO.class
 View\ViewSignUp$1.class
+Controller\LoginViewController.class
 Service\MyObjectOutputStream.class
 View\ViewAddAccount$1.class
 View\ViewMenu$1.class
 View\ViewWithdrawal.class
 Service\DeserializeClients.class
+Controller\SignUpViewController.class
 View\ViewWithdrawal$3.class
 View\ViewSignUp$6.class
 View\ViewSignUp$5.class
@@ -25,7 +26,6 @@ View\ViewMenu$2.class
 com\mycompany\bankuady\BankUADY.class
 View\ViewAddAccount$2.class
 View\ViewLogin$4.class
-Controllers\LoginViewController.class
 Model\CheckingAccount.class
 View\ViewMenu.class
 View\ViewDeposit$5.class

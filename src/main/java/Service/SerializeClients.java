@@ -9,10 +9,15 @@ import java.io.ObjectOutputStream;
 
 public class SerializeClients {
 
+    /**
+     * Constante con la dirección el archivo .dat que representa la base de datos
+     */
     private static final File CLIENTSDATAFILE = new File("src\\main\\java\\Files\\clientesInformation.dat");
     
     /**
-     *
+     * Método para serializar el archivo .dat que representa la base de datos
+     * Recibe un objeto, el cual serializa y guarda en la base de datos
+     * 
      * @param client
      * @throws FileNotFoundException
      * @throws IOException
@@ -34,3 +39,4 @@ public class SerializeClients {
     }
 
 }
+

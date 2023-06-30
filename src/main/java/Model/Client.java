@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.io.Serializable;
@@ -14,7 +10,10 @@ public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     *
+     * Constructor de la clase Client
+     * Recibe cuatro parametros (datos del cliente): curp, nombre, usuario y constraseña
+     * Inicializa las variables privadas de la clase con cada uno de esos parametros respectivamente
+     * 
      * @param clientName
      * @param clientCurp
      * @param clientUser
@@ -28,15 +27,17 @@ public class Client implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Método de acceso get para la variable clientName
+     * 
+     * @return clientName
      */
     public String getClientName() {
         return clientName;
     }
 
     /**
-     *
+     * Método de acceso set para la variable clientName
+     * 
      * @param clientName
      */
     public void setClientName(String clientName) {
@@ -44,15 +45,16 @@ public class Client implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Método de acceso get para la variable clientCurp
+     * @return clientCurp
      */
     public String getClientCurp() {
         return clientCurp;
     }
 
     /**
-     *
+     * Método de acceso set para la variable clientCurp
+     * 
      * @param clientCurp
      */
     public void setClientCurp(String clientCurp) {
@@ -60,15 +62,16 @@ public class Client implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Método de acceso get para la variable clientPassWord
+     * @return clientPassWord
      */
     public String getClientUser() {
         return clientUser;
     }
 
     /**
-     *
+     * Método de acceso set para la variable clientUser
+     * 
      * @param clientUser
      */
     public void setClientUser(String clientUser) {
@@ -76,22 +79,20 @@ public class Client implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Método de acceso get para la variable clientPassWord
+     * @return clientPassWord
      */
     public String getClientPassWord() {
         return clientPassWord;
     }
 
     /**
-     *
+     * Método de acceso set para la variable clientPassWord
+     * 
      * @param clientPass
      */
     public void setClientPassWord(String clientPass) {
         this.clientPassWord = clientPass;
     }
-
-   
-    
-   
+ 
 }

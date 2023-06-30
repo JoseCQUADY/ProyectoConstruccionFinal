@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Service;
 
 import Model.Client;
@@ -16,11 +12,16 @@ import javax.swing.JOptionPane;
 
 public class DeserializeClients {
 
+    /**
+     * Constante con la dirección el archivo .dat que representa la base de datos
+     */
     private static final File CLIENTSDATAFILE = new File("src\\main\\java\\Files\\clientesInformation.dat");
     private final static ArrayList<Client> clientList = new ArrayList<>();
 
     /**
-     *
+     * Método para deserializar el archivo .dat que representa la base de datos
+     * Devuelve una lista desearilizada con los datos de los clientes registrados
+     * 
      * @return client list
      * @throws FileNotFoundException
      * @throws IOException
@@ -47,3 +48,4 @@ public class DeserializeClients {
         return clientList;
     }
 }
+
