@@ -1,30 +1,42 @@
 package Model;
 
+import Serializable.DeserializeAccounts;
+import Serializable.SerializeAccounts;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Client implements Serializable {
     private String clientName;
     private String clientCurp;
     private String clientUser;
     private String clientPassWord;
+    private Account accountType;
     private static final long serialVersionUID = 1L;
     
-    /**
-     * Constructor de la clase Client
-     * Recibe cuatro parametros (datos del cliente): curp, nombre, usuario y constraseña
-     * Inicializa las variables privadas de la clase con cada uno de esos parametros respectivamente
-     * 
-     * @param clientName
-     * @param clientCurp
-     * @param clientUser
-     * @param clientPass
-     */
+   
     public Client(String clientName, String clientCurp, String clientUser, String clientPass) {
         this.clientName = clientName;
         this.clientCurp = clientCurp;
         this.clientUser = clientUser;
         this.clientPassWord = clientPass;
     }
+    
+    public Client(Account accountType){
+        this.accountType = accountType;
+    }
+
+  
+    public void setAccountType(Account accountType) throws IOException {
+        SerializeAccounts.serializeAccounts(accountType);
+    }
+
+    public ArrayList<Account> getAccountType() throws IOException, FileNotFoundException, ClassNotFoundException {
+        return DeserializeAccounts.deserializeAccounts();
+    }
+    
+    
 
     /**
      * Método de acceso get para la variable clientName

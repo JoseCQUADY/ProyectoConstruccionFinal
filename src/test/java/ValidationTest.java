@@ -1,32 +1,89 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
-
 import Service.Validation;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Ianag
- */
+
 public class ValidationTest {
-    public static Validation validation;
+    public static Validation validation = new Validation();
     public ValidationTest() {
     }
-
   
     /**
-     * Test of validateCURP method, of class Validation.
+     * Test of validateCurp method, of class Validation.
+     * Prueba cuando el CURP tiene la longitud esperada
      */
     @Test
-    public void testValidateCURP() {
-        Validation validation = new Validation();
-        
-        // Prueba cuando el CURP tiene la longitud esperada
-        String curpValido = "ABCD123456EFGHJKL9";
-        assertTrue(validation.validateCurp(curpValido));
+    public void testValidateCurp() {
+        String testCurp = "ABCD123456EFGHJKL9";
+        assertTrue(validation.validateCurp(testCurp));
         System.out.println("test CURP");
+        
+        testCurp = "ABCD123456";
+        assertFalse(validation.validateCurp(testCurp));
+        System.out.println("test CURP");
+    }
+    
+    /**
+     * Test of validatePass method, of class Validation.
+     * Prueba cuando la contraseña tiene la longitud esperada
+     */
+    @Test
+    public void testValidatePass() {
+        String testPass = "ABCD1234";
+        assertTrue(validation.validatePass(testPass));
+        System.out.println("test password");
+        
+        testPass = "AB12";
+        assertFalse(validation.validatePass(testPass));
+        System.out.println("test password");
+    }
+    
+    /**
+     * Test of validateBalance method, of class Validation.
+     * Prueba cuando el monto es solo númerico
+     */
+    @Test
+    public void testValidateBalance() {
+        String testBalance = "1234";
+        assertTrue(validation.validateBalance(testBalance));
+        System.out.println("test balance");
+        
+        testBalance = "ABCD";
+        assertFalse(validation.validateBalance(testBalance));
+        System.out.println("test balance");
+        
+        testBalance = "AB12";
+        assertFalse(validation.validateBalance(testBalance));
+        System.out.println("test balance");
+    }
+    
+    /**
+     * Test of validateName method, of class Validation.
+     * Prueba cuando el nombre del cliente no es númerico
+     */
+    @Test
+    public void testValidateName() {
+        String testName = "ABCD";
+        assertTrue(validation.validateName(testName));
+        System.out.println("test name");
+        
+        testName = "1234";
+        assertFalse(validation.validateName(testName));
+        System.out.println("test name");
+        
+        testName = "AB12";
+        assertFalse(validation.validateName(testName));
+        System.out.println("test name");
+    }
+    
+    @Test
+    public void testIsBalanceEqualsZero(){
+        Double testBalance = 0.0;
+        assertTrue(validation.isBalanceEqualsZero(testBalance));
+        System.out.println("test balance equals zero");
+        
+        testBalance = 1000.0;
+        assertFalse(validation.isBalanceEqualsZero(testBalance));
+        System.out.println("test balance equals zero");
     }
 }

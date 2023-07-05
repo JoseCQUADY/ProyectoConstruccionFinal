@@ -1,7 +1,11 @@
 package com.mycompany.bankuady;
 
-import Controller.LoginViewController;
+import Controller.ControllerLogin;
+import Controller.ControllerMenu;
 import View.ViewLogin;
+import View.ViewMenu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /*
  * @author Ian Aguilar, Jose Chi, Genaro Cutz
@@ -16,10 +20,15 @@ public class BankUADY {
      * 
      * @param args
      */
-    public static void main(String[] args) {  
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {  
+        
         ViewLogin loginView = new ViewLogin();
-        LoginViewController viewController = new LoginViewController(loginView);
+        ControllerLogin loginController = new ControllerLogin(loginView);
         loginView.show();
+        
+        /*ViewMenu viewMenu = new ViewMenu();
+        ControllerMenu menuController = new ControllerMenu(viewMenu);
+        viewMenu.show();*/
     }
 }
 

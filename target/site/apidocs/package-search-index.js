@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mycompany.bankuady"},{"l":"Controller"},{"l":"Model"},{"l":"Serializable"},{"l":"Service"},{"l":"View"}];updateSearchResults();

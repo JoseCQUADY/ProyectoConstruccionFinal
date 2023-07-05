@@ -1,0 +1,51 @@
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'20'
+-sourcepath
+'C:/Users/Ianag/OneDrive/Documents/NetBeansProjects/RefactorBankUADYCASIFINAL/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Ianag/OneDrive/Documents/NetBeansProjects/RefactorBankUADYCASIFINAL/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'BankUADY 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'BankUADY 1.0-SNAPSHOT API'
+com.mycompany.bankuady
+Controller
+Model
+Serializable
+Service
+View
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\src\main\java = 1688519203158
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\allclasses-index.html = 1688519763259
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\allpackages-index.html = 1688519763261
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\copy.svg = 1688519763318
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\element-list = 1688519762965
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\help-doc.html = 1688519763304
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\index-all.html = 1688519763290
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\index.html = 1688519763238
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\member-search-index.js = 1688519763267
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\module-search-index.js = 1688519763263
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\overview-summary.html = 1688519763296
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\overview-tree.html = 1688519763233
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\package-search-index.js = 1688519763264
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\script.js = 1688519763315
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\search-page.js = 1688519763322
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\search.html = 1688519763292
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\search.js = 1688519763321
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\serialized-form.html = 1688519763052
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\stylesheet.css = 1688519763309
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\tag-search-index.js = 1688519763268
+C:\Users\Ianag\OneDrive\Documents\NetBeansProjects\RefactorBankUADYCASIFINAL\target\site\apidocs\type-search-index.js = 1688519763265
