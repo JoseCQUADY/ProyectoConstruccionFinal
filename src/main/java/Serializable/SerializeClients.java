@@ -1,12 +1,18 @@
 package Serializable;
 
 import Model.Client;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * Clase donde se encuentra el método para serializar y guardar los datos de los clientes
+ * 
+ * @author Ian Aguilar, Jose Chi, Genaro Cutz
+ */
 public class SerializeClients {
 
     /**
@@ -23,20 +29,16 @@ public class SerializeClients {
      * @throws IOException
      */
     public static void serializeClients(Client client) throws FileNotFoundException, IOException {
-        
         ObjectOutputStream ObjectOutput;
         
         if (CLIENTSDATAFILE.length() == 0) {
-            ObjectOutput = new ObjectOutputStream(new FileOutputStream(CLIENTSDATAFILE));
-            
+            ObjectOutput = new ObjectOutputStream(new FileOutputStream(CLIENTSDATAFILE));            
         } else {
             ObjectOutput = new MyObjectOutputStream(new FileOutputStream(CLIENTSDATAFILE, true));
-           
         }
-        ObjectOutput.writeObject(client);
-        ObjectOutput.close();
         
+        ObjectOutput.writeObject(client);
+        ObjectOutput.close(); 
     }
-
 }
 

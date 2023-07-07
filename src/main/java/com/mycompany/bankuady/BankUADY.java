@@ -1,13 +1,14 @@
 package com.mycompany.bankuady;
 
 import Controller.ControllerLogin;
-import Controller.ControllerMenu;
 import View.ViewLogin;
-import View.ViewMenu;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/*
+/**
+ * Clase App del programa es donde se encuentra el main
+ * 
  * @author Ian Aguilar, Jose Chi, Genaro Cutz
  */
 public class BankUADY {
@@ -19,16 +20,13 @@ public class BankUADY {
      * Instacia el controllador de la vista Login
      * 
      * @param args
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {  
-        
         ViewLogin loginView = new ViewLogin();
         ControllerLogin loginController = new ControllerLogin(loginView);
         loginView.show();
-        
-        /*ViewMenu viewMenu = new ViewMenu();
-        ControllerMenu menuController = new ControllerMenu(viewMenu);
-        viewMenu.show();*/
     }
 }
-

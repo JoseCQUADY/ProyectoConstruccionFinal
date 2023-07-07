@@ -2,6 +2,11 @@ package Service;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Clase con los métodos para hacer todas las validaciones necesarias para los datos ingresados por el usuario (cliente)
+ * 
+ * @author Ian Aguilar, Jose Chi, Genaro Cutz
+ */
 public class Validation {
 
     /**
@@ -45,14 +50,13 @@ public class Validation {
      * @param balance
      * @return boolean
      */
-    public boolean validateBalance(String balance){
-        if (balance.matches("[0-9]+")){
+    public boolean validateBalance(double balance){   
+        try {
             return true;
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Solo ingrese números");
-        }
-        return false;   
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números. Error: " + e);
+            return false;
+        }   
     }
     
     /**
@@ -63,17 +67,16 @@ public class Validation {
      * @return boolean
      */
     public boolean validateName(String name){
-        boolean validator = true;
+        boolean validName = true;
         for (char caracter : name.toCharArray()) {
             if (Character.isDigit(caracter)) {
-                validator = false;
+                validName = false;
             }
         }
-        if(!validator){
+        if(!validName){
             JOptionPane.showMessageDialog(null, "Solo ingrese letras");
         }
-        return validator;
-
+        return validName;
     }
     
     /**
@@ -83,13 +86,13 @@ public class Validation {
      * @param balance
      * @return boolean
      */
-    public boolean isBalanceEqualsZero(Double balance){      
-        int expectedAmount = 0;
+    public boolean isBalanceEqualsZero(double balance){
+        double expectedAmount = 0.0;
         
-        if (balance != expectedAmount) {
-            JOptionPane.showMessageDialog(null, "Para eliminar la cuenta el saldo debe ser de $" + expectedAmount);
-            return false;
+        if (balance == expectedAmount) {
+            return true;     
         }      
-        return true;
+        JOptionPane.showMessageDialog(null, "Para eliminar la cuenta el saldo debe ser de $" + expectedAmount);
+        return false;
     }
 }

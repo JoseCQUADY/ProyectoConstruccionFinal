@@ -2,20 +2,34 @@ package Model;
 
 import Serializable.DeserializeAccounts;
 import Serializable.SerializeAccounts;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Clase modelo para el objeto Client
+ * Con sus atributos, constructor, métodos de acceso y métodos propios
+ * 
+ * @author Ian Aguilar, Jose Chi, Genaro Cutz
+ */
 public class Client implements Serializable {
     private String clientName;
     private String clientCurp;
     private String clientUser;
     private String clientPassWord;
-    private Account accountType;
     private static final long serialVersionUID = 1L;
     
-   
+    /**
+     * Constructor de la clase
+     * Inicializa los atributos privados usando los parametros que recibe
+     * 
+     * @param clientName
+     * @param clientCurp
+     * @param clientUser
+     * @param clientPass
+     */
     public Client(String clientName, String clientCurp, String clientUser, String clientPass) {
         this.clientName = clientName;
         this.clientCurp = clientCurp;
@@ -23,21 +37,6 @@ public class Client implements Serializable {
         this.clientPassWord = clientPass;
     }
     
-    public Client(Account accountType){
-        this.accountType = accountType;
-    }
-
-  
-    public void setAccountType(Account accountType) throws IOException {
-        SerializeAccounts.serializeAccounts(accountType);
-    }
-
-    public ArrayList<Account> getAccountType() throws IOException, FileNotFoundException, ClassNotFoundException {
-        return DeserializeAccounts.deserializeAccounts();
-    }
-    
-    
-
     /**
      * Método de acceso get para la variable clientName
      * 
@@ -106,5 +105,50 @@ public class Client implements Serializable {
     public void setClientPassWord(String clientPass) {
         this.clientPassWord = clientPass;
     }
- 
+    
+    /**
+     * Método de acceso set para agregar una cuenta a la base de datos
+     * 
+     * @param accountType
+     * @throws IOException
+     */
+    public void setAccount(Account accountType) throws IOException {
+        SerializeAccounts.serializeAccounts(accountType);
+    }
+
+    /**
+     * Método de acceso get para obtener una lista de las cuentas existentes
+     * 
+     * @return lista de cuentas
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     */
+    public ArrayList<Account> getAccounts() throws IOException, FileNotFoundException, ClassNotFoundException {
+        return DeserializeAccounts.deserializeAccounts();
+    }
+    
+    /**
+     * Método que llama al método modifyAccount de la clase SerializableAccounts
+     * Para modificar un atributo de la cuenta 
+     * 
+     * @param account
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void modifyAccount(Account account) throws IOException, ClassNotFoundException {
+        SerializeAccounts.modifyAccount(account);
+    }
+    
+    /**
+     * Método que llama al método removeAccounts de la clase SerializableAccounts
+     * Para eliminar un atributo de la cuenta 
+     * 
+     * @param account
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void removeAccount(Account account) throws IOException, ClassNotFoundException {
+        SerializeAccounts.removeAccount(account);
+    }
 }

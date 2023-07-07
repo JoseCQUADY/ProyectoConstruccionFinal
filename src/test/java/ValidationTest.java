@@ -44,16 +44,8 @@ public class ValidationTest {
      */
     @Test
     public void testValidateBalance() {
-        String testBalance = "1234";
+        double testBalance = 1234;
         assertTrue(validation.validateBalance(testBalance));
-        System.out.println("test balance");
-        
-        testBalance = "ABCD";
-        assertFalse(validation.validateBalance(testBalance));
-        System.out.println("test balance");
-        
-        testBalance = "AB12";
-        assertFalse(validation.validateBalance(testBalance));
         System.out.println("test balance");
     }
     
@@ -78,7 +70,7 @@ public class ValidationTest {
     
     @Test
     public void testIsBalanceEqualsZero(){
-        Double testBalance = 0.0;
+        double testBalance = 0.0;
         assertTrue(validation.isBalanceEqualsZero(testBalance));
         System.out.println("test balance equals zero");
         

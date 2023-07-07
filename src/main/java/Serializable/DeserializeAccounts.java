@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class DeserializeAccounts {
+    /**
+     * Constante con la dirección el archivo .dat que representa la base de datos
+     */
+    private static final File ACCOUNTSDATAFILE = new File("src\\main\\java\\Files\\accountsInfomation.dat");
 
     /**
      * Método para deserializar el archivo .dat que representa la base de datos
@@ -22,19 +26,16 @@ public class DeserializeAccounts {
      * @throws ClassNotFoundException
      */
     public static ArrayList<Account> deserializeAccounts() throws FileNotFoundException, IOException, ClassNotFoundException {
-        File ACCOUNTSDATAFILE = new File("src\\main\\java\\Files\\accountsInfomation.dat");
         ArrayList<Account> accountList = new ArrayList<>();
         if (ACCOUNTSDATAFILE.exists()) {
             ObjectInputStream objectInputData = new ObjectInputStream(new FileInputStream(ACCOUNTSDATAFILE));
             while (true) {
-
                 try {
                     Account accountType = (Account) objectInputData.readObject();
                     accountList.add(accountType);
                 } catch (EOFException e) {
                     break;
                 }
-
             }
         } else {
             JOptionPane.showMessageDialog(null, "Not account information found");
@@ -42,5 +43,4 @@ public class DeserializeAccounts {
 
         return accountList;
     }
-
 }

@@ -1,11 +1,11 @@
 package Controller;
 
-
 import Model.Bank;
 import Model.Client;
 import Service.Validation;
 import View.ViewLogin;
 import View.ViewSignUp;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -21,10 +21,14 @@ public class ControllerSignUp implements ActionListener {
 
     /**
      * Constructor de la clase SignUpViewController
-     * Inicializa los botones y campos de texto de la vista Sign Up
+     * Inicializa los botones y campos de texto de la vista
      * Para poder usarlos y llamarlos desde el controlador
      * 
+     * @param nationalBank
      * @param viewSignUp
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
     public ControllerSignUp(Bank nationalBank,ViewSignUp viewSignUp) throws IOException, FileNotFoundException, ClassNotFoundException { 
         this.viewSignUp = viewSignUp;
@@ -46,15 +50,16 @@ public class ControllerSignUp implements ActionListener {
      * @throws java.io.FileNotFoundException
      * @throws java.lang.ClassNotFoundException
      */
-    public void addUserAccount() throws IOException, FileNotFoundException, ClassNotFoundException {
-        Validation validator = new Validation();
+    private void addUserAccount() throws IOException, FileNotFoundException, ClassNotFoundException {
+        Validation validatorData = new Validation();
         String clientCurp = this.viewSignUp.textFieldCurp.getText();
         String clientName = this.viewSignUp.textFieldName.getText();
         String clientPassword = this.viewSignUp.textFieldPass.getText();
         String clientUserName = this.viewSignUp.textFieldUser.getText();
         boolean existsClientData = clientCurp.equals("") && clientName.equals("") && clientPassword.equals("") && clientUserName.equals("");
         if (!existsClientData){
-            if (validator.validateCurp(clientCurp) && validator.validateName(clientName) && validator.validatePass(clientPassword)){
+            boolean validClientData = validatorData.validateCurp(clientCurp) && validatorData.validateName(clientName) && validatorData.validatePass(clientPassword);
+            if (validClientData){
                 if (!nationalBank.existsClient(clientCurp)){                    
                     Client newUserClient = new Client(clientName, clientCurp, clientUserName, clientPassword);
                     nationalBank.setClient(newUserClient);
@@ -67,35 +72,36 @@ public class ControllerSignUp implements ActionListener {
             }
         }else{
             JOptionPane.showMessageDialog(null, "Campos de texto vacios");
-        }
-        
+        } 
     }
 
     /**
      * Método para abrir la vista Sign Up 
      * Cierra la vista Login
+     * 
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
-    public void openViewLogin() throws IOException, FileNotFoundException, ClassNotFoundException {
+    private void openViewLogin() throws IOException, FileNotFoundException, ClassNotFoundException {
         ViewLogin viewLogin = new ViewLogin();
         ControllerLogin viewController = new ControllerLogin(viewLogin);
-        viewLogin.setVisible(true);
         this.viewSignUp.setVisible(false);
+        viewLogin.setVisible(true);
     }
 
     /**
-     * Método de la clase implementada ActionListener que detecta y maneja eventos (clic en botones)
-     * Utilizado para el funcionamiento y uso de los botones de la vista Sign Up 
-     * Mediante condicionales
-     * 
+     * Método de la clase implementada ActionListener que detecta y maneja eventos (clic en botones) 
+     * Utilizado para el funcionamiento y uso de los botones de la vista 
+     * Mediante condicionales para comprobar el botón que se presiona
+     *
      * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewSignUp.ButtonSignUp) {
-            try {
-                
+            try {              
                 addUserAccount();
-              
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ControllerLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -103,13 +109,9 @@ public class ControllerSignUp implements ActionListener {
         if (e.getSource() == this.viewSignUp.ButtonReturn) {
             try {
                 openViewLogin();
-            } catch (IOException ex) {
-                Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
-
 }

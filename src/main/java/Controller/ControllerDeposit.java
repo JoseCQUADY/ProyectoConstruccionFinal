@@ -5,10 +5,10 @@ import Model.Bank;
 import Model.CheckingAccount;
 import Model.Client;
 import Model.SavingAccount;
-import Serializable.SerializeAccounts;
 import View.ViewDeposit;
-
 import View.ViewMenu;
+import Service.Validation;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -18,89 +18,117 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase controlador para la vista Deposit
+ * Controla la vista implementando la clase ActionListener
+ * Con sus atributos, constructor, métodos de acceso y métodos propios
+ * 
+ * @author Ian Aguilar, Jose Chi, Genaro Cutz
+*/
 public class ControllerDeposit implements ActionListener {
-
-    private ViewDeposit viewDeposit = new ViewDeposit();
-    private Client clientUser;
     private Bank nationalBank;
+    private Client clientUser;
+    private ViewDeposit viewDeposit = new ViewDeposit();
 
     /**
-     * Constructor de la clase ControllerDeposit Inicializa los botones y campos
-     * de texto de la vista Deposit Para poder usarlos y llamarlos desde el
-     * controlador
+     * Constructor de la clase 
+     * Inicializa los botones y campos de texto de la vista 
+     * Para poder usarlos y llamarlos desde el controlador
      *
+     * @param nationalBank
+     * @param clientUser
      * @param viewDeposit
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
     public ControllerDeposit(Bank nationalBank, Client clientUser, ViewDeposit viewDeposit) throws IOException, FileNotFoundException, ClassNotFoundException {
-        this.viewDeposit = viewDeposit;
-        this.clientUser = clientUser;
         this.nationalBank = nationalBank;
+        this.clientUser = clientUser;
+        this.viewDeposit = viewDeposit;
         this.viewDeposit.ButtonReturn.addActionListener(this);
         this.viewDeposit.ButtonDeposit.addActionListener(this);
         this.viewDeposit.ComboBoxAccount.addActionListener(this);
         this.viewDeposit.textFieldBalance.addActionListener(this);
-        loadClientAccounts();
+        loadClientAccountsComboBox();
     }
 
     /**
-     * Método para abrir la vista Menu Cierra la vista Deposit
+     * Método para cargar y mostrar las cuentas de un cliente especifico en la ComboBox de la vista
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
      */
-    public void loadClientAccounts() throws IOException, FileNotFoundException, ClassNotFoundException {
-        this.viewDeposit.ComboBoxAccount.removeAllItems(); // Eliminar todos los elementos existentes en el combobox
+    private void loadClientAccountsComboBox() throws IOException, FileNotFoundException, ClassNotFoundException {
+        this.viewDeposit.ComboBoxAccount.removeAllItems();
+        ArrayList<Account> clientListAccounts = clientUser.getAccounts();
 
-        ArrayList<Account> clientListAccounts = clientUser.getAccountType();
-
-        for (int i = 0; i < clientListAccounts.size(); i++) {
-            if (clientListAccounts.get(i).getIdClient().equals(this.clientUser.getClientCurp())) {
-                if (clientListAccounts.get(i) instanceof CheckingAccount) {
-                    this.viewDeposit.ComboBoxAccount.addItem("Checking Account " + clientListAccounts.get(i).getIdAccount() + " Balance: " + clientListAccounts.get(i).getBalanceAccount());
-                } else if (clientListAccounts.get(i) instanceof SavingAccount) {
-                    this.viewDeposit.ComboBoxAccount.addItem("Saving Account " + clientListAccounts.get(i).getIdAccount() + " Balance: " + clientListAccounts.get(i).getBalanceAccount());
+        for (Account account: clientListAccounts) {
+            if (account.getIdClient().equals(this.clientUser.getClientCurp())) {
+                if (account instanceof CheckingAccount) {
+                    this.viewDeposit.ComboBoxAccount.addItem("Cuenta Cheques " + account.getIdAccount() + " Saldo: " + account.getBalanceAccount());
+                } else if (account instanceof SavingAccount) {
+                    this.viewDeposit.ComboBoxAccount.addItem("Cuenta Ahorro " + account.getIdAccount() + " Saldo: " + account.getBalanceAccount());                 
                 }
             }
         }
     }
-
+    
+    /**
+     * Método para realizar un deposito en una cuenta especifica
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     */
     public void depositAccount() throws IOException, FileNotFoundException, ClassNotFoundException {
-        String selectedAccountStr = (String) viewDeposit.ComboBoxAccount.getSelectedItem();
-        String[] accountInfo = selectedAccountStr.split(" ");
-        int accountId = Integer.parseInt(accountInfo[2]); // Obtener el ID de la cuenta seleccionada
+        Validation validatorData = new Validation();    
+        double depositAmount = Double.parseDouble(this.viewDeposit.textFieldBalance.getText());
+        if (validatorData.validateBalance(depositAmount)){
+            ArrayList<Account> clientListAccounts = clientUser.getAccounts();
+            String selectedAccountStr = (String) viewDeposit.ComboBoxAccount.getSelectedItem();    
+            String[] accountInfo = selectedAccountStr.split(" ");
+            int accountId = Integer.parseInt(accountInfo[2]);
+            Account selectedAccount = null;
 
-        double depositAmount = Double.parseDouble(this.viewDeposit.textFieldBalance.getText()); // Obtener el monto del depósito
-
-        ArrayList<Account> clientListAccounts = clientUser.getAccountType();
-
-        Account selectedAccount = null;
-
-        for (Account account : clientListAccounts) {
-            if (account.getIdAccount() == accountId) {
-                selectedAccount = account;
-                break;
+            for (Account account : clientListAccounts) {
+                if (account.getIdAccount() == accountId) {
+                    selectedAccount = account;
+                    break;
+                }
             }
+
+
+            if (selectedAccount != null) {
+                selectedAccount.accountDeposit(depositAmount);           
+                clientUser.modifyAccount(selectedAccount);
+                JOptionPane.showMessageDialog(null, "Deposito realizado con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cuenta no encontrada");
+            }
+            
         }
+        
 
-        if (selectedAccount != null) {
-            selectedAccount.accountDeposit(depositAmount);
-            SerializeAccounts.modifyAccounts(selectedAccount);
-            JOptionPane.showMessageDialog(null, "Deposit successful");
-        } else {
-            JOptionPane.showMessageDialog(null, "Account not found");
-        }
-
-        loadClientAccounts();
-    }
-
-    public void openViewMenu() {
-        ViewMenu viewMenu = new ViewMenu();
-        ControllerMenu menuController = new ControllerMenu(nationalBank, clientUser, viewMenu);
-        viewMenu.setVisible(true);
-        this.viewDeposit.setVisible(false);
+        loadClientAccountsComboBox();
     }
 
     /**
-     * Método de la clase implementada ActionListener que detecta y maneja
-     * eventos (clic en botones) Utilizado para el funcionamiento y uso de los
-     * botones de la vista Menu Mediante condicionales
+     * Método para abrir la vista Menu 
+     * Cierra la vista Deposit
+     */
+    private void openViewMenu() {
+        ViewMenu viewMenu = new ViewMenu();
+        ControllerMenu menuController = new ControllerMenu(nationalBank, clientUser, viewMenu);
+        this.viewDeposit.setVisible(false);
+        viewMenu.setVisible(true);
+    }
+
+    /**
+     * Método de la clase implementada ActionListener que detecta y maneja eventos (clic en botones) 
+     * Utilizado para el funcionamiento y uso de los botones de la vista 
+     * Mediante condicionales para comprobar el botón que se presiona
      *
      * @param e
      */
@@ -109,9 +137,7 @@ public class ControllerDeposit implements ActionListener {
         if (e.getSource() == this.viewDeposit.ButtonDeposit) {
             try {
                 depositAccount();
-            } catch (IOException ex) {
-                Logger.getLogger(ControllerDeposit.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ControllerDeposit.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
