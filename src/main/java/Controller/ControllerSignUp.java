@@ -55,13 +55,13 @@ public class ControllerSignUp implements ActionListener {
         String clientCurp = this.viewSignUp.textFieldCurp.getText();
         String clientName = this.viewSignUp.textFieldName.getText();
         String clientPassword = this.viewSignUp.textFieldPass.getText();
-        String clientUserName = this.viewSignUp.textFieldUser.getText();
-        boolean existsClientData = clientCurp.equals("") && clientName.equals("") && clientPassword.equals("") && clientUserName.equals("");
+        String clientUser = this.viewSignUp.textFieldUser.getText();
+        boolean existsClientData = clientCurp.equals("") && clientName.equals("") && clientPassword.equals("") && clientUser.equals("");
         if (!existsClientData){
             boolean validClientData = validatorData.validateCurp(clientCurp) && validatorData.validateName(clientName) && validatorData.validatePass(clientPassword);
             if (validClientData){
-                if (!nationalBank.existsClient(clientCurp)){                    
-                    Client newUserClient = new Client(clientName, clientCurp, clientUserName, clientPassword);
+                if (!nationalBank.existsClient(clientCurp, clientUser)){                    
+                    Client newUserClient = new Client(clientName, clientCurp, clientUser, clientPassword);
                     nationalBank.setClient(newUserClient);
 
                     JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
@@ -87,6 +87,7 @@ public class ControllerSignUp implements ActionListener {
         ViewLogin viewLogin = new ViewLogin();
         ControllerLogin viewController = new ControllerLogin(viewLogin);
         this.viewSignUp.setVisible(false);
+        viewLogin.setLocationRelativeTo(null);
         viewLogin.setVisible(true);
     }
 

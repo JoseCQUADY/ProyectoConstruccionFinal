@@ -32,12 +32,16 @@ public class Bank {
     /**
      * Método de tipo booleano que revisa si el cliente existe en la base de datos
      * 
-     * @param curpName
+     * @param curp
+     * @param user
      * @return true si existe, false si no existe
      */
-    public boolean existsClient(String curpName) {
+    public boolean existsClient(String curp, String user) {
         for (Client client : clientList) {
-            if (client.getClientName().equals(curpName)) {
+            if (client.getClientCurp().equals(curp)) {
+                return true;
+            }
+            if (client.getClientUser().equals(user)) {
                 return true;
             }
         }

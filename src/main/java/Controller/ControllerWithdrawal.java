@@ -84,31 +84,36 @@ public class ControllerWithdrawal implements ActionListener {
      * @throws ClassNotFoundException
      */
     public void withdrawAccount() throws IOException, FileNotFoundException, ClassNotFoundException {
-        Validation validatorData = new Validation();
-        double withdrawAmount = Double.parseDouble(this.viewWithdrawal.textFieldBalance.getText());
-        if (validatorData.validateBalance(withdrawAmount)){
-            ArrayList<Account> clientListAccounts = clientUser.getAccounts();
-            String selectedAccountStr = (String) viewWithdrawal.ComboBoxAccount.getSelectedItem();
-            String[] accountInfo = selectedAccountStr.split(" ");
-            int accountId = Integer.parseInt(accountInfo[2]);
-            Account selectedAccount = null;
+        try {
+            Validation validatorData = new Validation();
+            double withdrawAmount = Double.parseDouble(this.viewWithdrawal.textFieldBalance.getText());
+            boolean validAmountWithdraw = validatorData.validateBalance(withdrawAmount) && validatorData.validatePositiveBalance(withdrawAmount) ; 
+            if (validAmountWithdraw){
+                ArrayList<Account> clientListAccounts = clientUser.getAccounts();
+                String selectedAccountStr = (String) viewWithdrawal.ComboBoxAccount.getSelectedItem();
+                String[] accountInfo = selectedAccountStr.split(" ");
+                int accountId = Integer.parseInt(accountInfo[2]);
+                Account selectedAccount = null;
 
-            for (Account account : clientListAccounts) {
-                if (account.getIdAccount() == accountId) {
-                    selectedAccount = account;
-                    break;
+                for (Account account : clientListAccounts) {
+                    if (account.getIdAccount() == accountId) {
+                        selectedAccount = account;
+                        break;
+                    }
+                }
+
+                if (selectedAccount != null) {
+                    selectedAccount.accountWithdraw(withdrawAmount);
+                    clientUser.modifyAccount(selectedAccount);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cuenta no encontrada");
                 }
             }
 
-            if (selectedAccount != null) {
-                selectedAccount.accountWithdraw(withdrawAmount);
-                clientUser.modifyAccount(selectedAccount);
-            } else {
-                JOptionPane.showMessageDialog(null, "Cuenta no encontrada");
-            }
+            loadClientAccountsComboBox();
+        }catch(NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
-
-        loadClientAccountsComboBox();
     }
 
     /**
@@ -119,6 +124,7 @@ public class ControllerWithdrawal implements ActionListener {
         ViewMenu viewMenu = new ViewMenu();
         ControllerMenu menuController = new ControllerMenu(nationalBank, clientUser, viewMenu);
         this.viewWithdrawal.setVisible(false);
+        viewMenu.setLocationRelativeTo(null);
         viewMenu.setVisible(true);
     }
 

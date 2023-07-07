@@ -59,14 +59,16 @@ public class ControllerAddAccount implements ActionListener {
     private void addAccount() throws IOException {
         Validation validatorData = new Validation();
         double accountInitialBalance =  Double.parseDouble(this.viewAddAccount.textFieldBalance1.getText());
-        if (validatorData.validateBalance(accountInitialBalance)){
+        boolean validAmountData = validatorData.validateBalance(accountInitialBalance) && validatorData.validatePositiveBalance(accountInitialBalance);
+        if (validAmountData){
             if (this.viewAddAccount.ComboBoxAccountType1.getSelectedIndex() == 0) {
             SavingAccount savingAccount = new SavingAccount(INTERESTRATE,lastInterestAppliedDate,accountInitialBalance,clientUser.getClientCurp());
             clientUser.setAccount(savingAccount);
             }else{
                 CheckingAccount creditAccount = new CheckingAccount(accountInitialBalance,clientUser.getClientCurp()); 
                 clientUser.setAccount(creditAccount);
-            }  
+            } 
+            JOptionPane.showMessageDialog(null, "Cuenta agregada con éxito");
         }
     }
 
@@ -82,6 +84,7 @@ public class ControllerAddAccount implements ActionListener {
         ViewAccounts viewAccounts = new ViewAccounts();
         ControllerAccounts accountsController = new ControllerAccounts(clientUser,nationalBank,viewAccounts);
         this.viewAddAccount.setVisible(false);
+        viewAccounts.setLocationRelativeTo(null);
         viewAccounts.setVisible(true);
     }
 
@@ -97,7 +100,6 @@ public class ControllerAddAccount implements ActionListener {
         if (e.getSource() == this.viewAddAccount.ButtonAddAccount) {
             try {
                 addAccount();
-                JOptionPane.showMessageDialog(null, "Cuenta agregada con éxito");
             } catch (IOException ex) {
                 Logger.getLogger(ControllerAddAccount.class.getName()).log(Level.SEVERE, null, ex);
             }

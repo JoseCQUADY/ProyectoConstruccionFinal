@@ -27,6 +27,22 @@ public class Validation {
     }
     
     /**
+     * Método para validar que el balance ingresada es positivo
+     * 
+     * @param balance
+     * @return boolean
+     */
+    public boolean validatePositiveBalance(double balance){
+        double expectedPositiveBalance = 0.0;
+        
+        if (balance < expectedPositiveBalance) {
+            JOptionPane.showMessageDialog(null, "No puede ingresar números negativos");
+            return false;
+        }      
+        return true;
+    }
+    
+    /**
      * Método para validar que la contraseña ingresada tiene minimo 8 caracteres
      * Devuelve un false si se cumple la condición, de lo contrario devuelve true
      * 

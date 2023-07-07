@@ -83,35 +83,40 @@ public class ControllerDeposit implements ActionListener {
      * @throws ClassNotFoundException
      */
     public void depositAccount() throws IOException, FileNotFoundException, ClassNotFoundException {
-        Validation validatorData = new Validation();    
-        double depositAmount = Double.parseDouble(this.viewDeposit.textFieldBalance.getText());
-        if (validatorData.validateBalance(depositAmount)){
-            ArrayList<Account> clientListAccounts = clientUser.getAccounts();
-            String selectedAccountStr = (String) viewDeposit.ComboBoxAccount.getSelectedItem();    
-            String[] accountInfo = selectedAccountStr.split(" ");
-            int accountId = Integer.parseInt(accountInfo[2]);
-            Account selectedAccount = null;
+        try{
+            Validation validatorData = new Validation();    
+            double depositAmount = Double.parseDouble(this.viewDeposit.textFieldBalance.getText());
+            boolean validAmountDeposit = validatorData.validateBalance(depositAmount) && validatorData.validatePositiveBalance(depositAmount) ; 
+            if (validAmountDeposit){
+                ArrayList<Account> clientListAccounts = clientUser.getAccounts();
+                String selectedAccountStr = (String) viewDeposit.ComboBoxAccount.getSelectedItem();    
+                String[] accountInfo = selectedAccountStr.split(" ");
+                int accountId = Integer.parseInt(accountInfo[2]);
+                Account selectedAccount = null;
 
-            for (Account account : clientListAccounts) {
-                if (account.getIdAccount() == accountId) {
-                    selectedAccount = account;
-                    break;
+                for (Account account : clientListAccounts) {
+                    if (account.getIdAccount() == accountId) {
+                        selectedAccount = account;
+                        break;
+                    }
                 }
+
+
+                if (selectedAccount != null) {
+                    selectedAccount.accountDeposit(depositAmount);           
+                    clientUser.modifyAccount(selectedAccount);
+                    JOptionPane.showMessageDialog(null, "Deposito realizado con éxito");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cuenta no encontrada");
+                }
+
             }
 
 
-            if (selectedAccount != null) {
-                selectedAccount.accountDeposit(depositAmount);           
-                clientUser.modifyAccount(selectedAccount);
-                JOptionPane.showMessageDialog(null, "Deposito realizado con éxito");
-            } else {
-                JOptionPane.showMessageDialog(null, "Cuenta no encontrada");
-            }
-            
+            loadClientAccountsComboBox();
+        }catch(NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
-        
-
-        loadClientAccountsComboBox();
     }
 
     /**
@@ -122,6 +127,7 @@ public class ControllerDeposit implements ActionListener {
         ViewMenu viewMenu = new ViewMenu();
         ControllerMenu menuController = new ControllerMenu(nationalBank, clientUser, viewMenu);
         this.viewDeposit.setVisible(false);
+        viewMenu.setLocationRelativeTo(null);
         viewMenu.setVisible(true);
     }
 

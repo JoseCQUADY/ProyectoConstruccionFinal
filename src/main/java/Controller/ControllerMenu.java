@@ -57,6 +57,7 @@ public class ControllerMenu implements ActionListener {
         ViewAccounts viewAccounts = new ViewAccounts();
         ControllerAccounts accountsController = new ControllerAccounts(clientUser,nationalBank,viewAccounts);
         this.viewMenu.setVisible(false);
+        viewAccounts.setLocationRelativeTo(null);
         viewAccounts.setVisible(true);
     }
     
@@ -72,6 +73,7 @@ public class ControllerMenu implements ActionListener {
         ViewDeposit viewDeposit = new ViewDeposit();
         ControllerDeposit depositController = new ControllerDeposit(nationalBank,clientUser,viewDeposit);
         this.viewMenu.setVisible(false);
+        viewDeposit.setLocationRelativeTo(null);
         viewDeposit.setVisible(true);
     }
     
@@ -83,6 +85,7 @@ public class ControllerMenu implements ActionListener {
         ViewWithdrawal viewWithdrawal = new ViewWithdrawal();
         ControllerWithdrawal withdrawalController = new ControllerWithdrawal(nationalBank,clientUser,viewWithdrawal);
         this.viewMenu.setVisible(false);
+        viewWithdrawal.setLocationRelativeTo(null);
         viewWithdrawal.setVisible(true);
     }
     

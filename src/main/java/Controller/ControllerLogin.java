@@ -83,6 +83,7 @@ public class ControllerLogin implements ActionListener {
         ViewSignUp viewSignUp = new ViewSignUp();
         ControllerSignUp signUpController = new ControllerSignUp(nationalBank,viewSignUp);
         this.viewLogin.setVisible(false);
+        viewSignUp.setLocationRelativeTo(null);
         viewSignUp.setVisible(true);       
     }
     
@@ -96,6 +97,7 @@ public class ControllerLogin implements ActionListener {
         ViewMenu viewMenu = new ViewMenu();
         ControllerMenu menuController = new ControllerMenu(nationalBank,clientUser,viewMenu);
         this.viewLogin.setVisible(false);
+        viewMenu.setLocationRelativeTo(null);
         viewMenu.setVisible(true);
     }
 

@@ -68,16 +68,17 @@ public class ControllerAccounts implements ActionListener {
         DefaultTableModel model = (DefaultTableModel) this.viewAccounts.jTable1.getModel();
         model.setRowCount(0);
         for (Account account : userAccounts) {
-            Object[] rowData = new Object[3];
+            Object[] rowData = new Object[4];
+            rowData[0]=account.getIdAccount();
             if (account instanceof CheckingAccount) {
-                rowData[0] = "Cuenta Cheques";
+                rowData[1] = "Cuenta Cheques";
             } else if (account instanceof SavingAccount) {
-                rowData[0] = "Cuenta Ahorro";
+                rowData[1] = "Cuenta Ahorro";
             } else{
-                rowData[0] = "Error";
+                rowData[1] = "Error";
             }
-            rowData[1] = account.getBalanceAccount();
-            rowData[2] = "X";
+            rowData[2] = account.getBalanceAccount();
+            rowData[3] = "X";
             fillDeleteButton();
             model.addRow(rowData);
         }
@@ -89,7 +90,7 @@ public class ControllerAccounts implements ActionListener {
      */
     private void fillDeleteButton() {
         DefaultTableModel model = (DefaultTableModel) this.viewAccounts.jTable1.getModel();
-        ButtonDeleteColumn buttonColumn = new ButtonDeleteColumn(viewAccounts.jTable1, 2);
+        ButtonDeleteColumn buttonColumn = new ButtonDeleteColumn(viewAccounts.jTable1, 3);
         buttonColumn.setButtonText("X");
         buttonColumn.setButtonClickListener(new ActionListener() {
             Validation validatorData = new Validation();
@@ -127,6 +128,7 @@ public class ControllerAccounts implements ActionListener {
         ViewMenu viewMenu = new ViewMenu();
         ControllerMenu menuController = new ControllerMenu(nationalBank, clientUser, viewMenu);
         this.viewAccounts.setVisible(false);
+        viewMenu.setLocationRelativeTo(null);
         viewMenu.setVisible(true);
     }
     
@@ -138,6 +140,7 @@ public class ControllerAccounts implements ActionListener {
         ViewAddAccount viewAdd = new ViewAddAccount();
         ControllerAddAccount controllerAddAccount = new ControllerAddAccount(nationalBank, clientUser, viewAdd);
         this.viewAccounts.setVisible(false);
+        viewAdd.setLocationRelativeTo(null);
         viewAdd.setVisible(true);
     }
 

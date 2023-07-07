@@ -25,8 +25,9 @@ public class BankUADY {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {  
-        ViewLogin loginView = new ViewLogin();
-        ControllerLogin loginController = new ControllerLogin(loginView);
-        loginView.show();
+        ViewLogin viewLogin = new ViewLogin();
+        ControllerLogin loginController = new ControllerLogin(viewLogin);
+        viewLogin.setLocationRelativeTo(null);
+        viewLogin.setVisible(true);
     }
 }
